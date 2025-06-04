@@ -7,7 +7,18 @@ from .models import Wallet, Transaction
 from .forms import LoginForm, RegisterForm, TransferForm
 
 def home(request):
-    return render(request, 'ram/index.html')
+    if request.user.is_authenticated:
+        return redirect('wallet')
+
+    form = LoginForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+        if user:
+            login(request, user)
+            return redirect('wallet')
+        messages.error(request, "Invalid username or password.")
+    
+    return render(request, 'ram/index.html', {'form': form})
 
 def register_view(request):
     if request.method == 'POST':
