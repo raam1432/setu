@@ -1,14 +1,15 @@
 from pathlib import Path
 import os
 
+# Base Directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Security
 SECRET_KEY = 'django-insecure-change-this-key'
-
 DEBUG = True
-
 ALLOWED_HOSTS = ['*']
 
+# Installed Apps
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -16,8 +17,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'setu_coin',  # तुमचं models जिथं आहेत ते app (main folder)
 ]
 
+# Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -28,12 +31,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# URL Configuration
 ROOT_URLCONF = 'setu_coin.urls'
 
+# Templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # तुमचं templates folder
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -46,8 +51,10 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'setu_coin.wsgi:application'
+# WSGI Application
+WSGI_APPLICATION = 'setu_coin.wsgi.application'
 
+# Database (Using SQLite for local dev)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -55,5 +62,32 @@ DATABASES = {
     }
 }
 
+# Password Validation (Basic for development)
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
+
+# Language, Timezone
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'Asia/Kolkata'
+USE_I18N = True
+USE_TZ = True
+
+# Static Files
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Default Auto Field
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
